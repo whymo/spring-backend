@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<modules>
+  <module moduleId="org.eclipse.jst.jee.server:mweb01" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chapstudtytransaction" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:mweb03" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap11" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap10" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.j2ee.server:mweb03"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap13" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.j2ee.server:mweb02" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap12" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.j2ee.server:mweb01" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap14" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:weet" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:springmvc" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:springstudyinterceptor" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chapAOP" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap02" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:springinterceptor" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap04" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap06" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap05" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap07" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap09" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:mybatis" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap4" serverId="Tomcat v9.0"/>
+  <module moduleId="org.eclipse.jst.jee.server:chap3" serverId="Tomcat v9.0"/>
+</modules>

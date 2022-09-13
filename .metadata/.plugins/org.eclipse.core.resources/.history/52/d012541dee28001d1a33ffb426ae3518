@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<response>
+
+    <header>
+        <resultCode>00</resultCode>
+        <resultMsg>NORMAL SERVICE.</resultMsg>
+    </header>
+
+    <body>
+        
+        <items>
+            <item>
+                <createDt>2022-08-30 08:07:00.006</createDt>
+                <deathCnt>26689</deathCnt>
+                <decideCnt>23142437</decideCnt>
+                <seq>990</seq>
+                <stateDt>20220830</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-31 08:15:57.022</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-29 09:04:40.552</createDt>
+                <deathCnt>26618</deathCnt>
+                <decideCnt>23026799</decideCnt>
+                <seq>989</seq>
+                <stateDt>20220829</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-31 08:16:12.99</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-28 09:23:20.921</createDt>
+                <deathCnt>26569</deathCnt>
+                <decideCnt>22983674</decideCnt>
+                <seq>988</seq>
+                <stateDt>20220828</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-31 08:16:27.935</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-27 09:10:24.672</createDt>
+                <deathCnt>26499</deathCnt>
+                <decideCnt>22898425</decideCnt>
+                <seq>987</seq>
+                <stateDt>20220827</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-31 08:16:52.428</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-26 08:55:24.519</createDt>
+                <deathCnt>26413</deathCnt>
+                <decideCnt>22802836</decideCnt>
+                <seq>986</seq>
+                <stateDt>20220826</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-31 08:17:07.413</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-25 08:50:21.992</createDt>
+                <deathCnt>26332</deathCnt>
+                <decideCnt>22701716</decideCnt>
+                <seq>985</seq>
+                <stateDt>20220825</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-31 08:18:17.689</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-24 08:50:29.097</createDt>
+                <deathCnt>26224</deathCnt>
+                <decideCnt>22588367</decideCnt>
+                <seq>984</seq>
+                <stateDt>20220824</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-31 08:18:35.615</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-23 09:00:22.27</createDt>
+                <deathCnt>26161</deathCnt>
+                <decideCnt>22449064</decideCnt>
+                <seq>983</seq>
+                <stateDt>20220823</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-30 08:09:00.138</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-22 08:10:20.298</createDt>
+                <deathCnt>26109</deathCnt>
+                <decideCnt>22298898</decideCnt>
+                <seq>982</seq>
+                <stateDt>20220822</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-27 09:14:29.004</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-21 09:23:58.217</createDt>
+                <deathCnt>26044</deathCnt>
+                <decideCnt>22239879</decideCnt>
+                <seq>981</seq>
+                <stateDt>20220821</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-27 09:15:12.89</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-20 09:16:38.308</createDt>
+                <deathCnt>25980</deathCnt>
+                <decideCnt>22128971</decideCnt>
+                <seq>980</seq>
+                <stateDt>20220820</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-27 09:15:40.959</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-19 08:59:50.322</createDt>
+                <deathCnt>25896</deathCnt>
+                <decideCnt>21999631</decideCnt>
+                <seq>979</seq>
+                <stateDt>20220819</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-26 08:56:58.338</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-18 08:54:41.403</createDt>
+                <deathCnt>25813</deathCnt>
+                <decideCnt>21860883</decideCnt>
+                <seq>978</seq>
+                <stateDt>20220818</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-25 08:53:26.316</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-17 06:24:10.981</createDt>
+                <deathCnt>25752</deathCnt>
+                <decideCnt>21682395</decideCnt>
+                <seq>977</seq>
+                <stateDt>20220817</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-24 08:51:54.988</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-16 06:27:26.615</createDt>
+                <deathCnt>25710</deathCnt>
+                <decideCnt>21501742</decideCnt>
+                <seq>976</seq>
+                <stateDt>20220816</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-23 09:04:11.682</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-15 09:06:28.871</createDt>
+                <deathCnt>25673</deathCnt>
+                <decideCnt>21417737</decideCnt>
+                <seq>975</seq>
+                <stateDt>20220815</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-20 09:19:07.747</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-14 09:04:15.348</createDt>
+                <deathCnt>25623</deathCnt>
+                <decideCnt>21355681</decideCnt>
+                <seq>974</seq>
+                <stateDt>20220814</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-20 09:19:24.046</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-13 09:05:17.492</createDt>
+                <deathCnt>25566</deathCnt>
+                <decideCnt>21236135</decideCnt>
+                <seq>973</seq>
+                <stateDt>20220813</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-20 09:19:40.729</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-12 08:40:20.037</createDt>
+                <deathCnt>25499</deathCnt>
+                <decideCnt>21111590</decideCnt>
+                <seq>972</seq>
+                <stateDt>20220812</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-19 09:02:24.842</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-11 09:10:29.411</createDt>
+                <deathCnt>25441</deathCnt>
+                <decideCnt>20982950</decideCnt>
+                <seq>971</seq>
+                <stateDt>20220811</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-18 08:57:51.377</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-10 09:21:32.068</createDt>
+                <deathCnt>25382</deathCnt>
+                <decideCnt>20845787</decideCnt>
+                <seq>970</seq>
+                <stateDt>20220810</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-17 06:26:25.494</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-09 09:06:13.288</createDt>
+                <deathCnt>25332</deathCnt>
+                <decideCnt>20694097</decideCnt>
+                <seq>969</seq>
+                <stateDt>20220809</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-13 09:06:28.225</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-08 09:03:33.354</createDt>
+                <deathCnt>25292</deathCnt>
+                <decideCnt>20544231</decideCnt>
+                <seq>968</seq>
+                <stateDt>20220808</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-13 09:06:42.265</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-07 09:06:42.352</createDt>
+                <deathCnt>25263</deathCnt>
+                <decideCnt>20488969</decideCnt>
+                <seq>967</seq>
+                <stateDt>20220807</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-13 09:06:55.146</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-06 09:05:09.8</createDt>
+                <deathCnt>25236</deathCnt>
+                <decideCnt>20383501</decideCnt>
+                <seq>966</seq>
+                <stateDt>20220806</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-13 09:07:11.619</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-05 08:19:11.853</createDt>
+                <deathCnt>25191</deathCnt>
+                <decideCnt>20272882</decideCnt>
+                <seq>965</seq>
+                <stateDt>20220805</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-12 08:43:45.493</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-04 08:58:06.376</createDt>
+                <deathCnt>25144</deathCnt>
+                <decideCnt>20160027</decideCnt>
+                <seq>964</seq>
+                <stateDt>20220804</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-11 09:12:26.753</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-03 09:01:06.599</createDt>
+                <deathCnt>25110</deathCnt>
+                <decideCnt>20052173</decideCnt>
+                <seq>963</seq>
+                <stateDt>20220803</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-10 09:23:37.356</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-02 09:02:53.088</createDt>
+                <deathCnt>25084</deathCnt>
+                <decideCnt>19932291</decideCnt>
+                <seq>962</seq>
+                <stateDt>20220802</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-09 09:07:40.6</updateDt>
+            </item>
+            <item>
+                <createDt>2022-08-01 09:00:03.794</createDt>
+                <deathCnt>25068</deathCnt>
+                <decideCnt>19820538</decideCnt>
+                <seq>961</seq>
+                <stateDt>20220801</stateDt>
+                <stateTime>00:00</stateTime>
+                <updateDt>2022-08-06 09:45:17.021</updateDt>
+            </item>
+        </items>
+
+        <numOfRows>10</numOfRows>
+        <pageNo>1</pageNo>
+        <totalCount>30</totalCount>
+    </body>
+
+</response>

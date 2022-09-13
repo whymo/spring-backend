@@ -1,0 +1,41 @@
+package org.zerock.myapp.domain;
+
+import java.util.Date;
+
+import lombok.Value;
+
+
+@Value
+public class KoreanHouseVO {
+	
+   private String brandnm;
+   private Integer brandno;
+   private String goodsnm;
+   
+   private Integer cpId;
+   private String cpNm;
+   private Integer cpStat;
+   private Integer cpTp;
+   private Integer csId;
+   private String csNm;
+   private Double lat;
+   private Double longi;
+   private Date statUpdateDatetime;
+   
+   brandnm>오룡마을</brandnm>
+
+   <brandno>63</brandno>
+
+   <goodsnm>여수 천년한옥</goodsnm>
+
+   <goodsno>771</goodsno>
+
+   <price>70000</price>
+
+   <selltype>lodging</selltype>
+
+   <posx>34.7590947</posx>
+
+   <posy>127.6101041</posy>
+
+} // end class

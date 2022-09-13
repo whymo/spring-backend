@@ -1,0 +1,5 @@
+package org.zerock.myapp.dom4j;
+
+public class Dim {
+
+}

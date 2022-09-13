@@ -1,0 +1,151 @@
+package org.zerock.myapp.test;
+
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Timeout;
+import org.zerock.myapp.domain.Foo;
+import org.zerock.myapp.domain.Person;
+
+import com.google.gson.Gson;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+
+@Log4j2
+@NoArgsConstructor
+
+@TestInstance(Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class JavaToJsonSymbolTests {
+	
+	// ========================================================
+	// 1. Pojo를 JSON으로 변환하면 어떤 기호일까?
+	// ========================================================
+	
+	// @Disabled
+	@Test
+	@Order(1)
+	@DisplayName("1. testPojoToJson")
+	@Timeout(value = 3, unit = TimeUnit.SECONDS)
+	void testPojoToJson() {
+		
+		log.info("testPojoToJson() invoked.");
+		
+		// ================================
+		// + Pojo 객체 생성
+		// ================================
+		Person person = new Person();
+		person.setName("IAM");
+		person.setAge(29);
+		person.setWeight(70.2);
+		person.setHeight(162.5);
+		
+		log.info("\t + person : {}", person);
+		// + person : Person(name=IAM, age=29, weight=70.2, height=162.5)
+		
+		// ================================
+		// + Gson으로 변환
+		// ================================
+		Gson gson = new Gson();
+		
+		String json = gson.toJson(person);
+		log.info("\t + Pojo json : {}",json);
+		// + Pojo json : {"name":"IAM","age":29,"weight":70.2,"height":162.5}
+		// + Pojo == 일반 자바 객체는 { }로 나타나고 있음을 알 수 있다. (***)
+		
+	} // testPojoToJson
+	
+	// ========================================================
+	// 1. 배열을 JSON으로 변환하면 어떤 기호일까?
+	// ========================================================
+	
+	// @Disabled
+	@Test
+	@Order(2)
+	@DisplayName("2. testPojoToJson")
+	@Timeout(value = 3, unit = TimeUnit.SECONDS)
+	void testArrayToJson() {
+		
+		log.info("testArrayToJson() invoked.");
+		
+		// ================================
+		// + 배열 객체 생성
+		// ================================
+		int [] arr = {1, 2, 3, 4, 5};
+		
+		log.info("\t + arr : {}", Arrays.toString(arr));
+		// + arr : [1, 2, 3, 4, 5]
+		
+		// ================================
+		// + Gson으로 변환
+		// ================================
+		Gson gson = new Gson();
+		
+		String json = gson.toJson(arr);
+		log.info("\t + Array json : {}",json);
+		// + Array json : [1,2,3,4,5]
+		// + 배열 객체는 JSON에서 []로 나타나고 있음을 알 수 있다.
+		
+	} // testArrayToJson
+	
+	// ========================================================
+	// ========================================================
+	
+	
+	// ========================================================
+	// ========================================================
+	
+	// ========================================================
+	// ========================================================
+	
+	
+	// ========================================================
+	// ========================================================
+	
+	// @Disabled
+	@Test
+	@Order(1)
+	@DisplayName("1. testDoublePojoToJson")
+	@Timeout(value = 3, unit = TimeUnit.SECONDS)
+	void testDoublePojoToJson() {
+		
+		log.info("testDoublePojoToJson() invoked.");
+		
+		// ================================
+		// + Pojo 객체 생성
+		// ================================
+		Person person = new Person();
+		person.setName("IAM");
+		person.setAge(29);
+		person.setWeight(70.2);
+		person.setHeight(162.5);
+		
+		Foo foo = new Foo();
+		
+		person.setFoo();
+		
+		log.info("\t + person : {}", person);
+		// + person : Person(name=IAM, age=29, weight=70.2, height=162.5)
+		
+		// ================================
+		// + Gson으로 변환
+		// ================================
+		Gson gson = new Gson();
+		
+		String json = gson.toJson(person);
+		log.info("\t + Pojo json : {}",json);
+		// + Pojo json : {"name":"IAM","age":29,"weight":70.2,"height":162.5}
+		// + Pojo == 일반 자바 객체는 { }로 나타나고 있음을 알 수 있다. (***)
+		
+	} // testDoublePojoToJson
+
+} // end class

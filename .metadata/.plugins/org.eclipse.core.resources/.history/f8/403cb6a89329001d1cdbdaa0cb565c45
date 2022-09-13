@@ -1,0 +1,7 @@
+package org.zerock.myapp.domain;
+
+
+@Value
+public class EvChargerVO {
+
+} // end class

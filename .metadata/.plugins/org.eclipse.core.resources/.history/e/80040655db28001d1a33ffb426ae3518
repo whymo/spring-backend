@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!-- 1~2칸 띄우기 -->
+
+<project
+   xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+
+   <groupId>org.zerock</groupId>
+   <artifactId>chapopenapi</artifactId>
+   <version>1.0.0-BUILD-SNAPSHOT</version>
+
+   <!-- 웹에 패키징되는 건 war -->
+   <packaging>jar</packaging>
+
+   <name>chapopenapi</name>
+   <url>http://chapopenapi.com</url>
+   <description>Spring MVC project</description>
+
+
+   <!-- 프로젝트 어디서든 가져다 쓸수 있도록 정의 -->
+   <properties>
+      
+      <!-- 자바버전 -->
+      <java-version>11</java-version>
+      <!-- <java-home>${env.JAVA_HOME}</java-home> -->
+
+      <!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <maven.compiler.source>11</maven.compiler.source>
+      <maven.compiler.target>11</maven.compiler.target> -->
+      
+      <!-- 스프링버전 -->
+      <org.springframework-version>5.3.21</org.springframework-version>
+
+      <org.aspectj-version>1.9.9.1</org.aspectj-version>
+      <org.apache.logging.log4j-version>2.17.2</org.apache.logging.log4j-version>
+   </properties>
+
+
+   <dependencies>
+
+        <!-- =============== Logging =============== -->
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${org.apache.logging.log4j-version}</version>
+        </dependency>
+
+        <!-- For Spring framework, HikariCP, DriverSpy logging -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${org.apache.logging.log4j-version}</version>
+        </dependency>
+
+
+        <!-- ============= Servlet/JSP ============= -->
+         
+      <dependency>
+         <groupId>javax.servlet</groupId>
+         <artifactId>javax.servlet-api</artifactId>
+         <version>4.0.1</version>
+         <scope>provided</scope>
+      </dependency>
+   
+      <dependency>
+         <groupId>javax.servlet.jsp</groupId>
+         <artifactId>javax.servlet.jsp-api</artifactId>
+         <version>2.3.3</version>
+         <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>javax.servlet</groupId>
+         <artifactId>jstl</artifactId>
+         <version>1.2</version>
+      </dependency>
+
+
+        <!-- =============== AspectJ (스프링할 때 rt, weaver 꼭)=============== -->
+            
+      <dependency>
+         <groupId>org.aspectj</groupId>
+         <artifactId>aspectjrt</artifactId> <!-- rt = runtime -->
+         <version>${org.aspectj-version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.aspectj</groupId>
+         <artifactId>aspectjweaver</artifactId>
+         <version>${org.aspectj-version}</version>
+      </dependency>
+
+
+      <!-- ================ Spring (밑의 2개는 최소한 꼭) =============== -->
+
+      <!-- spring-security-core -->
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-core</artifactId>
+        <version>5.7.3</version>
+      </dependency>
+
+
+      <!-- spring bean container -->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-context</artifactId>
+         <version>${org.springframework-version}</version>
+      </dependency>
+
+      <!-- spring mvc 구동 -->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-webmvc</artifactId>
+         <version>${org.springframework-version}</version>
+      </dependency>
+
+      <!-- spring test -->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-test</artifactId>
+         <version>${org.springframework-version}</version>
+         <scope>test</scope>
+      </dependency>
+
+      <!-- spring-jdbc -->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-jdbc</artifactId>
+         <version>5.3.21</version>
+      </dependency>
+
+      <!-- spring-tx manager -->
+      <!-- X/Open XA 규약대로 모든 TX Manager가 구현되어 있다. -->
+      <!-- 1. WAS 2. Spring MVC 3. JDBC Driver 4. Database Instance 안에 구현체가 있다. -->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-tx</artifactId>
+         <version>5.3.21</version>
+      </dependency>
+
+      <!-- =============== JDBC =============== -->
+
+      <dependency>
+         <groupId>org.bgee.log4jdbc-log4j2</groupId>
+         <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+         <version>1.16</version>
+      </dependency>
+        
+      <dependency>
+         <groupId>com.oracle.database.jdbc</groupId>
+         <artifactId>ojdbc8-production</artifactId>
+         <version>21.5.0.0</version>
+      
+         <type>pom</type>
+      
+         <exclusions>
+            <exclusion>
+               <groupId>com.oracle.database.ha</groupId>
+               <artifactId>simplefan</artifactId>
+            </exclusion>
+      
+            <exclusion>
+               <groupId>com.oracle.database.ha</groupId>
+               <artifactId>ons</artifactId>
+            </exclusion>
+      
+            <exclusion>
+               <groupId>com.oracle.database.jdbc</groupId>
+               <artifactId>rsi</artifactId>
+            </exclusion>
+      
+            <exclusion>
+               <groupId>com.oracle.database.jdbc</groupId>
+               <artifactId>ucp</artifactId>
+            </exclusion>
+      
+            <exclusion>
+               <groupId>com.oracle.database.xml</groupId>
+               <artifactId>xdb</artifactId>
+            </exclusion>
+      
+            <exclusion>
+               <groupId>com.oracle.database.xml</groupId>
+               <artifactId>xmlparserv2</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+
+
+      <!-- =============== Testing (버전 4,5 둘다 쓸줄알아야함)=============== -->
+
+      <dependency>
+         <groupId>org.junit.jupiter</groupId>
+         <artifactId>junit-jupiter-api</artifactId>
+         <version>5.8.2</version>
+         <scope>test</scope>
+      </dependency>
+
+      <!-- ================ DataSource ================= -->
+
+      <!-- HikariCP -->
+      <dependency>
+         <groupId>com.zaxxer</groupId>
+         <artifactId>HikariCP</artifactId>
+         <version>5.0.1</version>
+
+         <!-- 이 부분만 뺀다 -->
+         <exclusions>
+            <exclusion>
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-api</artifactId>
+            </exclusion>
+         </exclusions>
+
+      </dependency>
+
+      <!-- ================ httpclient ================ -->
+      <dependency>
+         <groupId>org.apache.httpcomponents</groupId>
+         <artifactId>httpclient</artifactId>
+         <version>4.5.13</version>
+      </dependency>
+
+      <!-- ================ MyBatis ================= -->
+      <dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.10</version>
+		</dependency>
+
+      <!-- 마이바티스와 스프링 연동 라이브러리 -->
+      <dependency>
+         <groupId>org.mybatis</groupId>
+         <artifactId>mybatis-spring</artifactId>
+         <version>2.0.7</version>
+      </dependency>
+
+      <!-- ================ Data-Binding ================= -->
+
+      <!-- 변환 라이브러리 -->
+
+      <!-- (1) 자바객체를 직렬화(Serialize)하여 JSON / XML 로 변환 -->
+      <!-- (2) JSON / XML를 역직렬화(De-serialize)하여 자바객체로 변환 -->
+
+      <!-- Java 객체를 JSON으로 변환시켜 준다. -->
+      <dependency>
+         <groupId>com.fasterxml.jackson.core</groupId>
+         <artifactId>jackson-databind</artifactId>
+         <version>2.13.3</version>
+      </dependency>
+
+      <!-- Java 객체를 XML로 변환해 준다. -->
+      <dependency>
+         <groupId>com.fasterxml.jackson.dataformat</groupId>
+         <artifactId>jackson-dataformat-xml</artifactId>
+         <version>2.13.3</version>
+      </dependency>
+
+      <!-- Java 객체를 JSON으로 변환 -->
+      <!-- 위의 2개는 스프링 프레임워크가 사용하고, gson은 우리가 사용한다. -->
+      <dependency>
+         <groupId>com.google.code.gson</groupId>
+         <artifactId>gson</artifactId>
+         <version>2.9.1</version>
+      </dependency>
+    
+      <!-- ================ Misc ================= -->
+
+      <dependency>
+         <groupId>javax.inject</groupId>
+         <artifactId>javax.inject</artifactId>
+         <version>1</version>
+      </dependency>
+   
+      <dependency>
+         <groupId>org.projectlombok</groupId>
+         <artifactId>lombok</artifactId>
+         <version>1.18.24</version>
+         <scope>provided</scope>
+      </dependency>
+           
+   </dependencies>
+
+
+    <build>
+
+      <finalName>/</finalName>
+
+        <plugins>
+
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.3.2</version>
+            </plugin>
+
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-eclipse-plugin</artifactId>
+            <version>2.10</version>
+
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>false</downloadJavadocs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+
+            <configuration>
+               <release>${java-version}</release>
+            </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>

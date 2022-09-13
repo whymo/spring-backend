@@ -1,0 +1,63 @@
+package org.zerock.myapp.jsonio;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Timeout;
+import org.zerock.myapp.domain.Foo;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+
+@Log4j2
+@NoArgsConstructor
+
+@TestInstance(Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class JsonIoTests {
+	
+	// @Disabled
+	@Test
+	@Order(1)
+	@DisplayName("1. testSerialize")
+	@Timeout(value = 3, unit = TimeUnit.SECONDS)
+	void testSerialize() {
+		
+		log.trace("testSerialize() invoked.");
+		
+		// + 자바 객체를 JSON으로 변환
+		
+		Foo obj = new Foo();
+		obj.setId(300);
+		obj.setName("momomom");
+		
+		String jsonString;
+		log.info("");
+		// + JasonIO는 type도 반환하고 있다.
+		// + type을 알려줌으로써 이 type으로 
+		
+	} // testSerialize
+	
+	// ===================================================
+	
+	// @Disabled
+	@Test
+	@Order(2)
+	@DisplayName("2. testDeSerialize")
+	@Timeout(value = 3, unit = TimeUnit.SECONDS)
+	void testDeSerialize() {
+		
+		log.trace("testDeSerialize() invoked.");
+		
+	} // testDeSerialize
+	
+	// ===================================================
+
+} // end class

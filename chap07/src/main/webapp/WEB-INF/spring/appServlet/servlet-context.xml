@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- < resources mapping location >의 경우 파일을 생성하여 매핑할 수 있으며, 같은 location이여도 mapping을 추가할 수 있다. -->
+	<!-- 아래의 태그로 인해 URL mapping처럼 http://localhost:8080/resources/파일명으로 접근이 가능하다. -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- [ 현재 버전 ] -->
+	<!-- View Resolver -->
+	<view-resolvers>
+		<jsp prefix="/WEB-INF/views/" suffix=".jsp" />
+	</view-resolvers>
+
+	<!-- 파일 업로드 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="utf8" />
+		<!-- 최대 10mb까지 업로드 가능 -->
+		<beans:property name="maxInMemorySize" value="10485760" />
+		<beans:property name="maxUploadSize" value="10485760" />
+		<!-- 파일 1개당 최대 사이즈는 2mb로 제한 -->
+		<beans:property name="maxUploadSizePerFile" value="2097152" />
+		<!-- 파일의 이름을 저장할지 지정 -->
+		<beans:property name="preserveFilename" value="true" />
+		<!-- 업로드할 정소 지정 -->
+		<!-- 로컬에서는 경로를 file:///로 시작해야 한다. -->
+		<!-- multipartResolver 빈에서는 임시폴더를 지정해야 하기에 Temp까지만 지정해 준다. -->
+		<beans:property name="uploadTempDir" value="file:///C:/Temp/" />
+	</beans:bean>
+
+	<!-- base-package에 작성한 패키지 내에 있는 것을 빈으로 등록시킨다. -->
+	<context:component-scan base-package="org.zerock.myapp.controller" />
+
+	<!-- <context:component-scan base-package="org.zerock.myapp.mapper" /> -->
+	<mybatis-spring:scan base-package="org.zerock.myapp.mapper" />
+
+	<context:component-scan base-package="org.zerock.myapp.exception" />
+	
+</beans:beans>

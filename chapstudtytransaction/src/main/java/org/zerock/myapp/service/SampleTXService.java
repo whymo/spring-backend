@@ -1,0 +1,11 @@
+package org.zerock.myapp.service;
+
+import org.zerock.myapp.exception.ServiceException;
+
+public interface SampleTXService {
+	
+	public abstract void addData(String data) throws ServiceException;
+	// public abstract void deposit(String data) throws ServiceException;
+	// public abstract void sendMoney(String data) throws ServiceException;
+
+} // end interface

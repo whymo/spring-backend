@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="NewWizardAction">
+		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="com.springsource.sts.wizard.template"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="org.eclipse.jdt.ui.java"/>
+			<item value="org.eclipse.m2e"/>
+			<item value="org.springframework.ide.eclipse.beans.ui.wizards.category"/>
+			<item value="org.springsource.ide.eclipse.boot.wizards.category"/>
+			<item value="org.eclipse.wst.web.ui"/>
+		</list>
+	</section>
+	<section name="ExternalProjectImportWizard">
+		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID" value="true"/>
+		<item key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\Users\Junhyun\Documents\카카오톡 받은 파일\jsonexamples_20220831\jsonexamples"/>
+			<item value="C:\Users\Junhyun\Desktop\kh 자바 자료\springinterceptor_20220825\springinterceptor"/>
+			<item value="C:\Users\Junhyun\Documents\카카오톡 받은 파일\interceptor_20220822\interceptor"/>
+			<item value="C:\Users\Junhyun\Desktop\kh 자바 자료\uuidexamples"/>
+			<item value="C:\Users\Junhyun\Documents\카카오톡 받은 파일\chap03"/>
+			<item value="C:\Users\Junhyun\Documents\카카오톡 받은 파일\teacherstudyquartz"/>
+			<item value="C:\Users\Junhyun\Desktop\kh 자바 자료\studymybatis"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+			<item value="C:\app\eclipse\workspace\2021-12\me01studyquartz\pom.xml"/>
+		</list>
+	</section>
+</section>

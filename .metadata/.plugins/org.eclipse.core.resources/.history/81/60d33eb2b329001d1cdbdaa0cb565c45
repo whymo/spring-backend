@@ -1,0 +1,10 @@
+package org.zerock.myapp.domain;
+
+public class Person {
+	
+	private String name;
+	private Integer age;
+	private Double weight;
+	private Double he;
+
+} // end class

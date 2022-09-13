@@ -1,0 +1,71 @@
+package org.zerock.myapp.service;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.zerock.myapp.exception.ServiceException;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
+@NoArgsConstructor
+
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/**/root-context.xml")
+
+@TestInstance(Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class SampleTXServiceTests {
+	
+	// ===================================================
+	// + 1. 의존성 주입
+	// ===================================================
+	@Autowired
+	private SampleTXService service;
+	
+	// ===================================================
+	// + 2. 의존성 주입 확인
+	// ===================================================
+	@BeforeAll
+	void beforeAll () {
+		log.info("beforeAll() invoked.");
+		
+		assertNotNull(this.service);
+		log.info("\t + this.service : {}", this.service);
+	} // beforeAll
+	
+	// ===================================================
+	// + 3. 분산 트랜잭션 처리 (***)
+	// + -> 즉, 스프링의 트랜잭션 관리자를 이용한 2PC 수행
+	// ===================================================
+	@Test
+	@Order(1)
+	@DisplayName("1. testTransfer")
+	@Timeout( value = 3 ,unit = TimeUnit.SECONDS)
+	void testTransfer() throws ServiceException {
+		
+		log.info("testTransfer() invoked.");
+		
+		String data = "999999999999999999999999999999999999999999";
+		this.service.addData(data);
+		
+		log.info("\t + ALL Insert Success!!");
+		
+	} // testTransfer
+
+} // end class

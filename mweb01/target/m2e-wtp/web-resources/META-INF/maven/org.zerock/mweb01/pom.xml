@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<project
+   xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.zerock</groupId>
+  <artifactId>mweb01</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <packaging>war</packaging>
+
+  <name>mweb01</name>
+  <url>http://maven.apache.org</url>
+  <description>The project of maven webapp archetype</description>
+
+
+  <properties>
+  	<java-version>11</java-version>
+  	<java-home>${env.JAVA_HOME}</java-home>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    
+    <org.slf4j-version>1.7.36</org.slf4j-version>
+  </properties>
+  
+
+  <dependencies>
+		
+		<!-- 1. Logging -->
+
+		<!-- lombok 의 @Log4j2 어노테이션을 사용하는데 필요한 라이브러리 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.17.2</version>
+		</dependency>
+
+		<!-- DriverSpy Logging 에 필요한 라이브러리 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${org.slf4j-version}</version>
+      <!-- ${org.slf4j-version}는 <org.slf4j-version> 태그 안에 있는 값을 가져온다. -->
+
+			<scope>runtime</scope>
+      <!-- scope - runtime : 실행시킬때에만 필요하기 때문에 배포시에는 포함되지 않는다. -->
+		</dependency>
+
+		<!-- 2. javax.servlet-api (****) -->
+    <!-- + javax는 자바 확장파일이라는 의미이다. -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- 3. javax.servlet.jsp-api -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.3</version>
+
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- 4. javax.servlet/jstl ( JSP 스탠다드 태그 ) -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- 5. junit -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.8.2</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- 6. lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+		</dependency>
+
+	    <!-- 7. DriverSpy -->
+      <!-- jdbc Driver의 내부 동작을 찍어준다. -->
+	    <dependency>
+	      <groupId>org.bgee.log4jdbc-log4j2</groupId>
+	      <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+	      <version>1.16</version>
+	    </dependency>
+	    
+	    <!-- Oracle JDBC Driver -->
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8-production</artifactId>
+			<version>21.5.0.0</version>
+
+			<type>pom</type>
+
+			<exclusions>
+				<exclusion>
+				<groupId>com.oracle.database.ha</groupId>
+				<artifactId>simplefan</artifactId>
+				</exclusion>
+
+				<exclusion>
+				<groupId>com.oracle.database.ha</groupId>
+				<artifactId>ons</artifactId>
+				</exclusion>
+
+				<exclusion>
+				<groupId>com.oracle.database.jdbc</groupId>
+				<artifactId>rsi</artifactId>
+				</exclusion>
+
+				<exclusion>
+				<groupId>com.oracle.database.jdbc</groupId>
+				<artifactId>ucp</artifactId>
+				</exclusion>
+
+				<exclusion>
+				<groupId>com.oracle.database.xml</groupId>
+				<artifactId>xdb</artifactId>
+				</exclusion>
+
+				<exclusion>
+				<groupId>com.oracle.database.xml</groupId>
+				<artifactId>xmlparserv2</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+  </dependencies>
+
+
+  <build>
+    
+    <finalName>/</finalName>
+	<!-- finalName태그는 ContextPath를 결정해준다. -->
+
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version>
+      </plugin>
+      <!-- 패키지를 war파일로 묶어낸다. -->
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <version>2.10</version>
+
+        <configuration>
+          <downloadSources>true</downloadSources>
+          <downloadJavadocs>false</downloadJavadocs>
+        </configuration>
+        <!-- 다운받을 때, 소스파일과, javadocs파일도 다운받을지 정하는 것이다. -->
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
+
+        <configuration>
+          <release>${java-version}</release>
+        </configuration>
+        <!-- 컴파일의 버전을 <java-version>태그에 작성된 버전으로 되게 하였다. -->
+      </plugin>
+
+    </plugins>
+
+  </build>
+  
+</project>

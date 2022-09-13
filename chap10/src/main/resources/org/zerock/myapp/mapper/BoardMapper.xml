@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.myapp.mapper.BoardMapper">
+
+    <insert id="insert">
+
+        INSERT INTO tbl_board(bno, title, content, writer)
+        VALUES( #{bno}, #{title}, #{content}, #{writer} )
+
+    </insert>
+
+    <insert id="insertSelectKey">
+
+        <!-- 이는 bno는 시퀀스로 자동으로 얻어지는 값인데, (****) -->
+        <!-- 이를 order=before로 하여 미리 값을 얻어가지고 이를 bno에 넘겨준다는 의미이다. -->
+        <!-- order의 before와 after의 기준은 아래의 SQL문이다. -->
+        <selectKey keyProperty="bno" order="BEFORE" resultType="int">
+            SELECT "ADMIN"."ISEQ$$_93174".nextval FROM dual
+        </selectKey>
+
+        INSERT INTO tbl_board(bno, title, content, writer)
+        VALUES( #{bno}, #{title}, #{content}, #{writer} )
+
+    </insert>
+
+    <update id="update">
+
+        UPDATE tbl_board
+        SET
+            title = #{title},
+            content = #{content},
+            writer = #{writer},
+            update_ts = CURRENT_DATE
+        WHERE bno = #{bno}
+
+    </update>
+
+</mapper>

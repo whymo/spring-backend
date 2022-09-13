@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;org.zerock.uuid&apos; to &apos;chap06/src/main/java&apos;&#x0D;&#x0A;- Original project: &apos;uuidexamples&apos;&#x0D;&#x0A;- Destination element: &apos;chap06/src/main/java&apos;&#x0D;&#x0A;- Original element: &apos;uuidexamples/src/main/java/org.zerock.uuid&apos;" description="Copy package" destination="=chap06/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;org.zerock.uuid" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1659937361966" version="1.0"/>
+</session>

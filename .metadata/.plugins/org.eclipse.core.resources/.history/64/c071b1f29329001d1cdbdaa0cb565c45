@@ -1,0 +1,22 @@
+package org.zerock.myapp.domain;
+
+import java.util.Date;
+
+import lombok.Value;
+
+
+@Value
+public class EvChargerVO {
+	
+   private String addr;
+   private Integer chargeTp;
+   private Integer cpId;
+   private Integer chargeT;
+   
+   private String classId;
+   private Character nType;
+   private String nTitle;
+   private String nContent;
+   private Date nTs;
+
+} // end class

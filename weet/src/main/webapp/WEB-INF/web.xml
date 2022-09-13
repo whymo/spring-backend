@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+  version="4.0">
+
+  <display-name>weet</display-name>
+         
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+  </welcome-file-list>
+
+  
+  <!-- ====================== -->
+  <!-- 공통 JSP 설정          -->
+  <!-- ====================== -->
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
+      <page-encoding>UTF-8</page-encoding>
+      <include-prelude>/WEB-INF/views/include.jsp</include-prelude>
+      <trim-directive-whitespaces>true</trim-directive-whitespaces>
+      <default-content-type>text/html; charset=utf8</default-content-type>
+    </jsp-property-group>
+  </jsp-config>
+
+
+  <!-- =============================== -->
+  <!-- Web Application 예외처리방법#1  -->
+  <!-- =============================== -->
+  <error-page>
+      <error-code>500</error-code>
+      <location>/WEB-INF/views/errors/500.jsp</location>
+  </error-page>
+
+  <error-page>
+      <error-code>404</error-code>
+      <location>/WEB-INF/views/errors/404.jsp</location>
+  </error-page>
+
+
+  <!-- =============================== -->
+  <!-- Web Application 예외처리방법#2  -->
+  <!-- =============================== -->
+  <error-page>
+      <exception-type>java.lang.NullPointerException</exception-type>
+      <location>/WEB-INF/views/errors/null.jsp</location>
+  </error-page>
+
+  <error-page>
+    <exception-type>java.lang.IllegalStateException</exception-type>
+    <location>/WEB-INF/views/errors/IllegalState.jsp</location>
+  </error-page>
+
+
+  <!-- =============================== -->
+  <!-- Http Session 만료시간설정(in minutes) -->
+  <!-- =============================== -->
+  <session-config>
+      <session-timeout>30</session-timeout>
+  </session-config>
+
+  
+
+  
+  <!-- ================================================== -->
+  <!-- Spring Project 생성시, 자동으로 넣어지는 설정 -->
+  <!-- ================================================= -->
+
+  <!-- 컨텍스트 초기화 파라미터 설정(가져다 쓸 수 있는 공유데이터) -->
+  <!-- 빈들에 대한 설정 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/spring/root-context.xml</param-value>
+  </context-param>
+
+  <!-- ContextLoaderListener 리스너 클래스가 가져가 쓰는게 위의 contextConfigLocation 이다! -->
+  <!-- 리스너는 이벤트를 받아들인다. -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!-- 모든 요청이 DispatcherServlet로 들어오게 되어있다! frontController 역할 (***) -->
+  <servlet>
+    <servlet-name>appServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+    </init-param>
+        
+    <!-- 요청은 들어왔으나, 이를 처리할 Handler를 찾지 못할 경우 예외 발생 -->
+    <init-param>
+        <param-name>throwExceptionIfNoHandlerFound</param-name>
+        <param-value>true</param-value>
+    </init-param>
+    
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <!-- 이는 DispatcherServlet의 mapping으로 모든 요청을 DispatcherServlet에 집중시키겠다는 의미이다. -->
+  <servlet-mapping>
+    <servlet-name>appServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <!-- 추가 설정 -->
+  <!-- 필터 처리 -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>utf8</param-value>
+    </init-param>
+
+    <init-param>
+        <param-name>forceEncoding</param-name>
+        <param-value>true</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+
+</web-app>

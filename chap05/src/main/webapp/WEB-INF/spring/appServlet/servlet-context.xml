@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- /resources/**의 의미는 resources폴더 아래에 있는 어떠한(모든) 자원을 의미한다. -->
+	<!-- < resources mapping location >의 경우 파일을 생성하여 매핑할 수 있으며, 같은 location이여도 mapping을 추가할 수 있다. -->
+	<!-- 설정파일을 수정하였으면, WAS를 내렸다가 올려야 한다. -->
+	<!-- 아래의 태그로 인해 URL mapping처럼 http://localhost:8080/resources/파일명으로 접근이 가능하다. -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- View로 어떤 JSP가 사용되어야 하는지 알려준다. -->
+	<!-- ViewResolver는 MVC 패턴에서 Model 데이터를 이용하여 최종 응답화면을 생성할 View 역할을 수행할 대상을 찾아낸다. -->
+	<!-- [ 예전 버전 ] -->
+	<!-- + 예전 버전은 빈으로 등록하는 방법을 사용했다. -->
+	<!-- <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
+		<!-- beans:property는 setPrefix와 setSuffix를 value값으로 해주는것이다. -->
+		<!-- <beans:property name="prefix" value="/WEB-INF/views/" /> -->
+		<!-- <beans:property name="suffix" value=".jsp" /> -->
+	<!-- </beans:bean> -->
+
+	<!-- [ 현재 버전 ] -->
+	<!-- View Resolver -->
+	<view-resolvers>
+		<jsp prefix="/WEB-INF/views/" suffix=".jsp" />
+	</view-resolvers>
+	
+	<!-- base-package에 작성한 패키지 내에 있는 것을 빈으로 등록시킨다. -->
+	<context:component-scan base-package="org.zerock.myapp" />
+	
+</beans:beans>

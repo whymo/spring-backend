@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.myapp.persistence.UserDAO">
+
+    <select 
+        id="selectUser" 
+        resultType="org.zerock.myapp.domain.UserVO">
+
+        <![CDATA[ 
+            SELECT * 
+            FROM tbl_user 
+            WHERE userid = #{userid} AND userpw = #{userpw} 
+        ]]>
+
+    </select>
+
+    <!-- ========================================================================================= -->
+
+    <select 
+        id="selectUserByRememberMe" 
+        resultType="org.zerock.myapp.domain.UserVO">
+    
+        SELECT userid, userpw, uname, upoint
+        FROM tbl_user
+        WHERE rememberme = #{rememberMe} AND rememberage >= current_date
+        <!-- rememberage는 유효기간으로, 현재날짜보다 유효기간이 커야지 유효하다. -->
+    
+    </select>
+    
+    <!-- ========================================================================================= -->
+
+    <update id="updateUserWithRememberMe">
+
+        UPDATE tbl_user
+        SET
+            rememberme = #{rememberMe, jdbcType=VARCHAR},
+            rememberage = #{rememberAge, jdbcType=DATE}
+        WHERE
+            userid = #{userid}
+        
+    </update>
+
+</mapper>

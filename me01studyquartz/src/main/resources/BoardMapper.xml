@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardMapper">
+
+    <!-- CRUD의 기본적인 태그를 지니고 있다. -->
+
+    <!-- 태그의 id는 주로 실행시킨 메소드의 이름을 그대로 사용한다. (맘대로 작성해도 ok) -->
+    <!-- id의 값은 유니크해야 한다. -->
+
+    <!-- resulType은 반환될 구체타입을 지정해 주면 된다. : List타입을 반환하지만 실제로는 List<BoardVO>이기에 BoardVO의 FQCN을 지정해주면 된다. -->
+    <!-- 즉, List<E>를 반환한다면 resulType에 <E>를 지정해 주면 된다. -->
+
+    <!-- ========================================================================================= -->
+
+    <!-- 1. 전체 게시물 목록을 조회하는 쿼리 등록 -->
+    <select id="selectAllBoards" resultType="org.zerock.myapp.domain.BoardVO">
+        SELECT * FROM tbl_board
+    </select>
+
+    <!-- 2. 특정 게시글 하나만 조회하는 쿼리 등록 -->
+    <select id="selectBoard" resultType="org.zerock.myapp.domain.BoardVO">
+        SELECT bno, title, content, writer, insert_ts, update_ts FROM tbl_board WHERE bno = #{bno}
+    </select>
+
+    <!-- #{bno}는 ?와 같은 기능을 한다. ( 값을 나중에 지정해 줄 수 있다. ) -->
+    <!-- 값 지정은 selectList나 selectOne에서 해줘야 한다. -->
+
+    <!-- 3. 특정 게시글 여러개를 조회하는 쿼리 등록 -->
+    <!-- !CDATA는 #{}와 부등호를 같이 사용할 때 문제가 발생할 수 있는데, 이를 방지해준다. (****) -->
+    <select id="selectBoardsByTwoCondition" resultType="org.zerock.myapp.domain.BoardVO">
+        <![CDATA[ 
+            SELECT bno, title, content, writer, insert_ts, update_ts 
+            FROM tbl_board 
+            WHERE 
+                bno > #{bno} 
+                AND title > #{title} 
+        ]]>
+    </select>
+
+    <!-- ========================================================================================= -->
+
+    <!-- 4. 게시판 검색어 조건에 맞게, 특정 게시글 번호로 검색해서 반환 1 ( 안전하지 않음 )  -->
+    <select id="findBoardByBno" resultType="org.zerock.myapp.domain.BoardVO">
+        SELECT bno, title, content, writer, insert_ts, update_ts 
+        FROM tbl_board 
+        WHERE 
+
+        <if test="bno != null">
+            bno = #{bno}
+        </if>
+
+    </select>
+
+    <!-- 5. 게시판 검색어 조건에 맞게, 특정 제목으로 검색해서 반환 2 (****) -->
+    <select id="findBoardByTitle" resultType="org.zerock.myapp.domain.BoardVO">
+        SELECT bno, title, content, writer, insert_ts, update_ts 
+        FROM tbl_board 
+
+        <where>
+
+            <if test="title != null">
+                title LIKE '%'||#{title}||'%'
+                <!-- 와일드 카드로 title로 검색 -->
+            </if>
+
+        </where>
+
+    </select>
+
+    <!-- 5 - 2. 게시판 검색어 조건에 맞게, 특정 제목으로 검색해서 반환 2 (****) -->
+    <select id="findBoardByTitle2" resultType="org.zerock.myapp.domain.BoardVO">
+        SELECT bno, title, content, writer, insert_ts, update_ts 
+        FROM tbl_board 
+
+        <where>
+
+            <if test="title != null">
+                title LIKE #{title}
+            </if>
+
+        </where>
+
+    </select>
+
+    <!-- 6. 게시판 검색어 조건에 맞게, 특정 작가로 검색해서 반환 3  -->
+    <select id="findBoardByWriter" resultType="org.zerock.myapp.domain.BoardVO">
+        SELECT bno, title, content, writer, insert_ts, update_ts 
+        FROM tbl_board 
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+
+            <if test="writer != null">
+                writer LIKE '%'||#{witer}||'%'
+                <!-- 와일드 카드로 writer 검색 -->
+            </if>
+
+        </trim>
+    </select>
+
+    <!-- 7. 게시판 검색어 조건에 맞게, 특정 게시글 번호와 제목을 검색해서 반환 4  -->
+    <select id="findBoardByBnoAndtitle" resultType="org.zerock.myapp.domain.BoardVO">
+        SELECT bno, title, content, writer, insert_ts, update_ts 
+        FROM tbl_board 
+
+        <!-- 다중 조건식( 체크 조건이 여러개인 경우 )의 처리 -->
+        <!-- prefix는 실행될 쿼리의 <trim> 태그 안에 쿼리 가장 앞에 붙여준다. -->
+        <!-- prefixOverrides는 조건식이 2개 이상일 때 사용한다. -->
+        <!-- prefixOverrides는 실행될 쿼리의 <trim> 문 안에 쿼리 가장 앞에 해당하는 문자들이 있으면 자동으로 지워준다. -->
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+
+            <if test="bno != null">
+                bno = #{bno}
+            </if>
+
+            <if test="title != null">
+                AND title LIKE '%'||#{title}||'%'
+            </if>
+
+        </trim>
+
+    </select>
+
+    <!-- 8. 게시판 검색어 조건에 맞게, 특정 게시글 번호 또는 제목을 검색해서 반환 5 (******)  -->
+    <select id="findBoardByBnoOrWriter" resultType="org.zerock.myapp.domain.BoardVO">
+        SELECT bno, title, content, writer, insert_ts, update_ts 
+        FROM tbl_board 
+
+        <!-- switch 문 -->
+        <where>
+
+            <choose>
+
+                <!-- when은 하나만 실행이 된다. -->
+                <!-- switch와 동일! -->
+                <when test="bno != null">
+                    bno = #{bno}
+                </when>
+
+                <when test="title != null">
+                    OR title LIKE '%'||#{title}||'%'
+                </when>
+
+                <!-- 그렇지 않으면 컨탠츠 내용내에서 검색하라 -->
+                <!-- otherwise는 필수사항이 아닌 선택사항이다. -->
+                <otherwise>
+                    content LIKE %||#{content}||'%'
+                </otherwise>
+
+            </choose>
+
+        </where>
+
+    </select>
+
+    <!-- 9. 게시판 검색어 조건에 맞게, 특정 게시글 번호를 검색해서 반환 ( 검색어가 여러개 ) 6 (******)  -->
+    <select id="findBoardsBySomeBnos" resultType="org.zerock.myapp.domain.BoardVO">
+        SELECT bno, title, content, writer, insert_ts, update_ts 
+        FROM tbl_board 
+
+        <where>
+
+            <!-- ( bno1, bno2, bno3 ... ) -->
+            <!-- item은 list의 원소를 bno로 꺼내겠다는 의미이다. -->
+            <!-- collection="list"은 타입이기에 이름을 바꾸면 안된다. -->
+            <foreach collection="list" item="bno" index="index" open="bno IN (" close=")" separator=",">
+                #{bno}
+            </foreach>
+
+        </where>
+    </select>
+
+    <!-- ========================================================================================= -->
+
+    <!-- <insert id=""></insert> -->
+
+    <!-- ========================================================================================= -->
+
+    <!-- <update id=""></update> -->
+
+    <!-- ========================================================================================= -->
+
+    <!-- <delete id=""></delete> -->
+
+    <!-- ========================================================================================= -->
+
+</mapper>

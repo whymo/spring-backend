@@ -1,0 +1,5 @@
+package org.zerock.myapp.jackson;
+
+public class JacksonTests {
+
+}

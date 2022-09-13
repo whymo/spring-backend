@@ -1,0 +1,13 @@
+package org.zerock.myapp.util;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+
+@NoArgsConstructor
+@Log4j2
+
+@TestInastance()
+public class BCryptPasswordEncoderTests {
+
+} // end class

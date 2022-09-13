@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- xmlns:와 xsi:는 디폴트 namespace이다. -->
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- 여기 안에 속한 것은 모두 빈 타입으로 등록하겠다는 의미이다. -->
+	<context:component-scan base-package="org.zerock.myapp.sample" />
+
+	<!-- 빈을 수동으로 등록하는 법 -->
+	<!-- 빈의 이름은 name이 아니라 id값으로 나온다. (***) -->
+	<!-- <bean id="hotel" name="myHotel" class="org.zerock.myapp.sample.Hotel" /> -->
+	<!-- <bean id="chef" name="myChef" class="org.zerock.myapp.sample.Chef" /> -->
+	<!-- <bean id="rest" name="myRest" class="org.zerock.myapp.sample.Restaurant" /> -->
+		
+</beans>

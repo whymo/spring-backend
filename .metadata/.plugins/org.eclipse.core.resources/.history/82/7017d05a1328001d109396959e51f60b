@@ -1,0 +1,5 @@
+package org.zerock.myapp.util;
+
+public class BCryptPasswordEncoderTests {
+
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mappers라는 폴더 밑의 UserMapper이라는 의미이다. -->
+<!-- namespace의 명명법은 경로구분자로 .을 사용하고, 마지막 이름을 Mapper 파일명으로 지어주는 것이 관례이다. -->
+<mapper namespace="mappers.UserMapper">
+
+    <!-- <select id=""></select> -->
+
+    <!-- ========================================================================================= -->
+
+    <!-- 각 SQL 태그의 id이름의 관례는 이 SQL 문장을 수행시킬 메소드의 이름을 그대로 붙여주는 것이다. -->
+    <insert id="insertNewUser">
+        INSERT INTO tbl_user ( userid, userpw, username )
+        VALUES ( #{userid}, #{userpw}, #{username} )
+    </insert>
+    
+    <!-- ========================================================================================= -->
+
+    <!-- <update id=""></update> -->
+
+    <!-- ========================================================================================= -->
+
+    <!-- <delete id=""></delete> -->
+
+    <!-- ========================================================================================= -->
+
+</mapper>

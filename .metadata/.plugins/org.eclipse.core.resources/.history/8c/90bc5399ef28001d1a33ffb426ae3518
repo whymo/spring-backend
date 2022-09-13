@@ -1,0 +1,141 @@
+package org.zerock.myapp.dom4j;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Timeout;
+
+import lombok.Cleanup;
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+
+@NoArgsConstructor
+@Log4j2
+
+@TestInstance(Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class JaxenTests {
+	
+	// @Disabled
+	@Test
+	@Order(1)
+	@DisplayName("Step 1. readXML")
+	@Timeout(value = 3, unit = TimeUnit.SECONDS)
+	void readXML() throws DocumentException {
+		
+		log.trace("readXML() invoked.");
+		
+		// ========================================
+		// 1. XML SAX Parser 생성 
+		// ========================================
+		
+		SAXReader reader = new SAXReader();
+		
+		// ====================================================
+		// 2. XML 파일 읽어오기 
+		// + XPath를 통해 파싱 수행 -> DOM tree 생성
+		// ====================================================
+		
+		reader.setEncoding("utf8");
+		// + 최근에는 기본으로 utf8로 지정되어있으나, 혹시 모르니 지정해줘야 한다.
+		
+		Document doc = reader.read("src/main/resources/Covid19DailyState.xml");
+		// + 파일의 경로( = systemId )를 url형태로 작성해 준다.
+		
+		String 
+		
+		// ========================================
+		// 3. 문서 객체에 대한 정보 출력
+		// ========================================
+		
+		log.info("\t + 3-1. docType : {}",doc.getDocType());
+		// + 3-1. docType : null
+		
+		log.info("\t + 3-2. name : {}", doc.getName());
+		// + 3-2. name : src/main/resources/Covid19DailyState.xml
+		
+		log.info("\t + 3-3. XMLEncoding : {}", doc.getXMLEncoding());
+		// + 3-3. XMLEncoding : UTF8
+		
+		// ========================================
+		// 4. DOM 순회
+		// ========================================
+		
+		Element root = doc.getRootElement();
+		log.info("\t + 4. root : {}", root);
+		// + DOM은 node의 계층 구조로 구성되어 있으며, Element는 node의 종류 중 하나이다.
+		// + Element는 HTML에서 태그로 적은 노드들을 의미한다.
+		// + Element 또한 실제타입을 찍어보니 다른 것을 보아 인터페이스임을 알 수 있다.
+		// + 4. root : org.dom4j.tree.DefaultElement@3b220bcb [Element: <response attributes: []/>]
+		
+		log.info("\t + 4-1. root : {}", root.getName());
+		// + 엘리먼트(태그)의 이름을 알려준다.
+		// + 4-1. root : response
+		
+		log.info("\t + 4-2. root Node Type : {}", root.getNodeTypeName());
+		// + 어떤 노드 타입인지 알아본다.
+		// + 4-2. root Node Type : Element
+		
+		log.info("\t + 4-3. root text : {}", root.getText());
+		
+		// ==============================================================
+		// 5. DOM의 순회 및 데이터 획득
+		// + 찾고자 하는 데이터가 들어가 있는 Element(태그)를 지정한다.
+		// + 단, 태그를 찾을 때에는 차근차근 겉에서 안으로 들어가야 한다.
+		// ==============================================================
+		
+		Element body = root.element("body");
+		log.info("\t + 5. body : {}",body);
+		// + 먼저, 가장 밭에 있는 body 태그에 접근한다.
+		
+		Element items = body.element("items");
+		log.info("\t + 5. items : {}", items);
+		// + body 태그 내에 있는 items 태그에 접근한다.
+		
+		@Cleanup("clear")
+		List<Element> item = items.elements("item");
+		// + items 태그 밑의 item 엘리먼트(태그)를 리스트에 넣기
+		
+		for ( Element e : item ) {
+			
+			// + item 태그에서 필요한 데이터 추출
+			Element createDtElement = e.element("createDt");
+			Element deathCntElement = e.element("deathCnt");
+			Element decideCntElement = e.element("decideCnt");
+			Element seqElement = e.element("seq");
+			Element stateDtElement = e.element("stateDt");
+			Element stateTimeElement = e.element("stateTime");
+			Element updateDtElement = e.element("updateDt");
+			
+			// + String 형태로 변환
+			String createDt = createDtElement.getStringValue();
+			String deathCnt = deathCntElement.getStringValue();
+			String decideCnt = decideCntElement.getStringValue();
+			String seq = seqElement.getStringValue();
+			String stateDt = stateDtElement.getStringValue();
+			String stateTime = stateTimeElement.getStringValue();
+			String updateDt = updateDtElement.getStringValue();
+			
+			// + item에 attr 속성을 넣어서 출력할 수도 있다.
+			String attr = e.attributeValue("attr");
+			
+			log.info("[{}]. createDt : {}, deathCnt : {}, decideCnt : {}, stateDt : {}, stateTime : {}, updateDt : {}, attr : {}",
+					seq, createDt, deathCnt, decideCnt, stateDt, stateTime, updateDt, attr );
+			
+		} // for : 리스트에서 넣은 것을 출력
+		
+	} // readXML
+
+} // end class

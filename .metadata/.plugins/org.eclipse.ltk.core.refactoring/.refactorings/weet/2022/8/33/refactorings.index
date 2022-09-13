@@ -1,0 +1,36 @@
+1660048426564	Rename package 'org.zerock.myapp.controller'
+1660048462778	Rename package 'org.zerock.myapp.domain'
+1660048478174	Rename package 'org.zerock.myapp.exception'
+1660048493887	Rename package 'org.zerock.myapp.listener'
+1660048515380	Rename package 'org.zerock.myapp.mapper'
+1660048544089	Rename package 'org.zerock.uuid'
+1660048566234	Rename package 'org.zerock.myapp.persistance'
+1660049617145	Copy compilation unit
+1660050013114	Copy file
+1660050164218	Move 'include.jsp' to 'activity'
+1660050262441	Rename resource 'include.jsp'
+1660050769865	Copy file
+1660050865755	Copy file
+1660051223900	Copy file
+1660051237091	Rename resource 'boardlike.jsp'
+1660051402436	Copy compilation unit
+1660051408867	Delete element
+1660051643266	Copy file
+1660052374185	Copy file
+1660052619692	Copy file
+1660053163191	Copy file
+1660053176012	Rename resource 'boardlist.jsp'
+1660053607910	Copy file
+1660053621299	Rename resource 'mybody.jsp'
+1660053637959	Copy file
+1660053948383	Copy file
+1660053968990	Rename resource 'paylist.jsp'
+1660054031361	Copy file
+1660054135182	Copy file
+1660054280072	Copy file
+1660121104615	Copy compilation unit
+1660125564855	Copy folder
+1660125581374	Copy folder
+1660125595396	Copy folder
+1660128821855	Rename resource 'Mypage1.css'
+1660129074578	Delete element

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+    <libraryInfo home="C:\app\scoop\apps\oraclejdk\current" version="17.0.2"/>
+    <libraryInfo home="C:\app\scoop\apps\temurin11-jdk\current" version="11.0.15"/>
+    <libraryInfo home="C:\app\scoop\apps\oraclejre8\current" version="1.8.0_321">
+        <bootpath>
+            <entry path="C:\app\scoop\apps\oraclejre8\current\lib\resources.jar"/>
+            <entry path="C:\app\scoop\apps\oraclejre8\current\lib\rt.jar"/>
+            <entry path="C:\app\scoop\apps\oraclejre8\current\lib\sunrsasign.jar"/>
+            <entry path="C:\app\scoop\apps\oraclejre8\current\lib\jsse.jar"/>
+            <entry path="C:\app\scoop\apps\oraclejre8\current\lib\jce.jar"/>
+            <entry path="C:\app\scoop\apps\oraclejre8\current\lib\charsets.jar"/>
+            <entry path="C:\app\scoop\apps\oraclejre8\current\lib\jfr.jar"/>
+            <entry path="C:\app\scoop\apps\oraclejre8\current\classes"/>
+        </bootpath>
+        <extensionDirs>
+            <entry path="C:\app\scoop\apps\oraclejre8\current\lib\ext"/>
+            <entry path="C:\WINDOWS\Sun\Java\lib\ext"/>
+        </extensionDirs>
+        <endorsedDirs>
+            <entry path="C:\app\scoop\apps\oraclejre8\current\lib\endorsed"/>
+        </endorsedDirs>
+    </libraryInfo>
+</libraryInfos>

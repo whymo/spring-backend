@@ -1,0 +1,48 @@
+package org.zerock.myapp.util;
+
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Timeout;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+
+@NoArgsConstructor
+@Log4j2
+
+@TestInstance(Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class BCryptPasswordEncoderTests {
+	
+	@Test
+	@Order(1)
+	@DisplayName("1. testBCryptPasswordEncoder")
+	@Timeout(value = 3, unit = TimeUnit.SECONDS)
+	void testBCryptPasswordEncoder() {
+		
+		log.trace("testBCryptPasswordEncoder() invoked.");
+		
+		String pw = "YOYOYO123456!!";			// 원래 암호
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		String cipherText = encoder.encode(pw); // cipherText == Hash Value ( 암호화한 값 )
+		// + cipherText : $2a$10$SZMcBHEADItPkl/v7vt7s.8.ZvfyY/eOZ6tniWvg5FIis53Mwkaz6
+		
+		Objects.requireNonNull(cipherText);
+		log.info("\t + cipherText : {}", cipherText);
+		log.info("\t + cipherText.len : {}", cipherText);
+		
+	} // testBCryptPasswordEncoder
+
+} // end class

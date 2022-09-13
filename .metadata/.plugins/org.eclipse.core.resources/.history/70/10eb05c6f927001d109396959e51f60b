@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- beans 빈들에 대한 설정을 여기에 하게 되어있다 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+   
+   <!-- Root Context: defines shared resources visible to all other web components -->
+
+   
+   <!-- ============= 1. HikariCP Data Source Configuration ============= -->
+
+   <bean
+      id="hikariConfig"
+      class="com.zaxxer.hikari.HikariConfig"
+      primary="true">
+
+      <description>HikariCP Configuration</description>
+
+   
+      <!-- 1. jdbc 연결정보 속성들에 값 설정 -->
+      <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+       <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@db202204131245_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP"/>
+       <property name="username" value="PM"/>
+       <property name="password" value="Oracle87761226"/>
+      
+      <property name="maximumPoolSize" value="10"/>
+      <property name="minimumIdle" value="2"/>
+      <property name="idleTimeout" value="10000"/>
+      <property name="connectionTimeout" value="1000"/>
+      <property name="connectionTestQuery" value="SELECT 1 FROM dual"/>
+      <property name="dataSourceJNDI" value="jdbc/HikariCP"/>
+      <property name="poolName" value="((( HikariDataSource )))"/>
+   </bean>
+
+   <bean
+      id="hikariDataSource"
+      class="com.zaxxer.hikari.HikariDataSource"
+      destroy-method="close"
+      primary="false">
+
+      <description>HikariCP Data Source</description>
+
+      <constructor-arg ref="hikariConfig"/>
+   </bean>
+
+
+   <!-- =========== 2. MyBatis Pooled Data Source Configuration =========== -->
+
+   <bean
+      id="pooledDataSource"
+      class="org.apache.ibatis.datasource.pooled.PooledDataSource"
+      destroy-method="forceCloseAll"
+      primary="true">
+
+      <description>MyBatis Pooled Data Source</description>
+
+      <property name="driver" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+
+      <property name="url" value="jdbc:log4jdbc:oracle:thin:@db202204131245_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP"/>
+
+      <property name="username" value="PM"/>
+       <property name="password" value="Oracle87761226"/>
+
+      <property name="poolMaximumActiveConnections" value="5"/>
+      <property name="poolMaximumIdleConnections" value="2"/>
+      <property name="poolPingEnabled" value="true"/>
+      <property name="poolPingQuery" value="SELECT 1 FROM dual"/>
+      <property name="loginTimeout" value="1"/>
+   </bean>
+
+
+   <!-- ============= 3. MyBatis Configuration ============= -->
+   
+   <bean
+      id="sqlSessionFactory"
+      class="org.mybatis.spring.SqlSessionFactoryBean">
+
+      <property name="dataSource" ref="pooledDataSource"/>
+
+      <property name="configLocation" value="classpath:mybatis-config.xml"/>
+
+      <!-- 만약, 마이바티스 설정파일 내에서, SQL Mapper 파일의 경로를 직접 지정하는 경우에는 아래처럼 생략가능 -->
+      <!-- <property name="mapperLocations" value="classpath*:mappers/**/SQL*.xml"/> -->
+   </bean>
+   
+   
+   <!-- spring AOP를 위한 설정으로 아래 2개 추가 -->
+   <context:annotation-config/>
+   <aop:aspectj-autoproxy />
+
+   <!-- Spring-jdbc에서 제공하는 트랜잭션 관리자를 bean으로 우선 등록 -->
+   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+	   <property name="dataSource" ref="pooledDataSource"></property>
+   </bean>
+
+   <!-- Spring-tx 트랜잭션 관리자를 이용한 분산 트랜잭션을 사용하겠다는 설정 추가 -->
+   <tx:annotation-driven />
+
+   <!--<context:component-scan base-package="org.zerock.myapp.aop" />-->
+   <context:component-scan base-package="org.zerock.myapp.service" />
+   <mybatis-spring:scan base-package="org.zerock.myapp.mapper" />
+
+</beans>

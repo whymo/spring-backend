@@ -1,0 +1,123 @@
+package org.zerock.myapp.service;
+
+import java.util.Objects;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.UncategorizedSQLException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.zerock.myapp.exception.ServiceException;
+import org.zerock.myapp.mapper.Sample1Mapper;
+import org.zerock.myapp.mapper.Sample2Mapper;
+
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
+
+
+@NoArgsConstructor
+@Log4j2
+
+@Service
+public class SampleTXServiceImpl implements SampleTXService {
+	
+	// ============================================
+	// + 1. 의존성 주입
+	// ============================================
+	@Setter(onMethod_= {@Autowired})
+	private Sample1Mapper mapper1;
+	
+	@Setter(onMethod_= {@Autowired})
+	private Sample2Mapper mapper2;
+	
+	// ===============================================================================
+	
+	// @Transactional 
+	// + 분산 트랜잭션 처리 -> 즉, 스프링의 트랜잭션 관리자를 이용한 2PC 수행
+	
+	// ===============================================================================
+	// + 2. @Transactional propagation ( 트랜잭션 전파 )
+	// + : 2개 이상의 TX가 존재할 경우 로직에 따라 결정해야 된다. (***)
+	// ===============================================================================
+	// + NESTED와 SUPPORTS는 상당히 유사하지만,
+	// + SUPPORTS는 TX가 필요 없다는 것이 전재지만, NESTED는 TX가 필요하다는 전재이다.
+	// ===============================================================================
+	// + MANDATORY와 NESTED는 둘 다 TX가 필요하고 중첩이 가능하다는 점에서 유사하지만,
+	// + MANDATORY는 자신만의 TX를 생성하는 것이 아니라, 이미 존재하는 특정한 TX하에서 수행
+	// + NESTED는 이미 존재하는 TX하에서 수행하지만, 특정 TX를 따지지는 않는다.
+	// ===============================================================================
+	// + REQUIRED는 시작지점에 사용되기에 새로운 TX를 생성하여 실행되게 되고,
+	// + REQUIRES_NEW는 중간에 새로운 TX를 만들어서 각자 다른 길로 실행되게 된다.
+	// + 그렇기에 REQUIRED는 근원이 되는 메소드에 붙여줘야 한다. (***)
+	// ===============================================================================
+	// 1. @Transactional(propagation = Propagation.REQUIRED)				// Default : 새로운 TX를 만들어 실행 ( 격리성 가짐 )
+	// 2. @Transactional(propagation = Propagation.MANDATORY)				// 반드시 특정 TX 하에서만 사용 가능
+	// 3. @Transactional(propagation = Propagation.NESTED)					// 기존 TX가 존재할 경우, 이 TX에 포함되어 수행
+	// 4. @Transactional(propagation = Propagation.NEVER)					// TX 없이 수행 ( TX 하에서 수행되면, 오류발생 )
+	// 5. @Transactional(propagation = Propagation.NOT_SUPPORTED)			// 기존 TX가 있는 경우, 그 TX가 끝날때까지 실행을 보류
+	// 6. @Transactional(propagation = Propagation.REQUIRES_NEW)			// 무조건 자신만의 고유한 TX를 생성하여 실행
+	// 7. @Transactional(propagation = Propagation.SUPPORTS)				// TX가 필요없지만, 이미 TX 하에 있다면 포함되어 실행
+	// ===============================================================================
+	
+	// ===============================================================================
+	// + 3. @Transactional isolation ( 트랜잭션 격리 레벨 )
+	// ===============================================================================
+	// + 대전제 : 각 트랜잭션은 격리된다. ( isolation 성질을 가진다. )
+	// + 그렇기에 각 트랜잭션끼리는 서로 간섭하지 않는다.
+	// + 하지만, 대전제는 격리 레벨을 조절함으로써 깨뜨릴 수 있다.
+	// ===============================================================================
+	// 1. @Transactional(isolation =Isolation.DEFAULT )	- Default : 사용하는 데이터 소스에 설정된 격리 수준을 따르겠다.
+	// 2. @Transactional(isolation =Isolation.READ_COMMITTED ) - SELECT 수행시, 읽을 수 있는 데이터는 commit이 완료된 데이터만
+	// 3. @Transactional(isolation =Isolation.READ_UNCOMMITTED ) - 커밋이 완료되지 않은 데이터도 읽을 수 있다.
+	// 4. @Transactional(isolation =Isolation.REPEATABLE_READ )	- 테이블의 같은 행에 대해 2가지 이상의 다른 행위를 하는 트랜잭션이 있을때,
+	// 5. @Transactional(isolation =Isolation.SERIALIZABLE )
+	// ===============================================================================
+	
+	@Transactional(propagation = Propagation.REQUIRED) // Default
+	@Override
+	public void addData(String data) throws ServiceException {
+		
+		log.trace("addData({}) invoked.", data);
+		
+		try {
+			
+			// ============================================
+			// + 의존성 주입 확인
+			// ============================================
+			Objects.requireNonNull(this.mapper1);
+			assert this.mapper2 != null;
+			
+			// ============================================
+			// + 아래 2개의 DML 작업은 1개의 트랜잭션으로 처리해야 한다.
+			// ============================================
+			this.mapper1.insertCol(data);						// 가정 1 : 소스계좌에서 출금
+			this.mapper2.insertCol(data);						// 가정 2 : 타겟계좌에 입금
+			
+			log.info("\t + Transfer done Successfully!!");
+			
+		} catch ( UncategorizedSQLException e ) {
+			
+			// ============================================
+			// + Spring TX 메니저가 Global 트랜잭션 처리를 해주려면
+			// + 이와 같이 UncategorizedSQLException 예외를 그대로 throw해줘야 한다. (****)
+			// + 만약, 이렇게 해주지 않으면, Global 트랜잭션 처리가 되지 않는다.
+			// ============================================
+			throw e;
+			
+		} catch(Exception e) { 
+			
+			log.info("\t + Transfer done Failure....");
+			log.info("\t + Error Type : {}", e.getClass());
+			log.info("\t + Error Type : {}", e.getClass().getName());
+			
+			throw new ServiceException (e);
+			
+		} // try - catch
+
+	} // addData
+	
+	// ===============================================================================
+
+} // end class

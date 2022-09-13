@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    
+    <!-- 서비스 환경 -->
+
+
+    <!-- 관리할 Mapper 파일 작성해 주기 (***) -->
+    <mappers>
+
+        <!-- 인터페이스 방식의 Mapper을 등록할 때에는 class 속성을 사용해야 한다.(***) -->
+        <!-- SQL Mapper XML 파일 등록 -->
+        <mapper resource="mappers/1/SQLMapper1.xml" />
+        <mapper resource="mappers/2/SQLMapper2.xml" />
+        <!-- Mapper Interface 등록 -->
+        <!-- <mapper class="org.zerock.myapp.mapper.TimeMapper" /> -->
+
+        <!-- 인터페이스 방식의 Mapper이 만약 페키지 안에 있다면, 이러한 방법으로 패키지를 지정해 줄 수도 있다. -->
+        <package name="org.zerock.myapp.mapper" />
+
+    </mappers>
+
+</configuration>

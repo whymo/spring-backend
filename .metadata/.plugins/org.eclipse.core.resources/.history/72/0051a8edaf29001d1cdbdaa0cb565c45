@@ -1,0 +1,86 @@
+package org.zerock.myapp.jsonio;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Timeout;
+import org.zerock.myapp.domain.Foo;
+
+import com.cedarsoftware.util.io.JsonReader;
+import com.cedarsoftware.util.io.JsonWriter;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+
+@Log4j2
+@NoArgsConstructor
+
+@TestInstance(Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class JsonIoTests {
+	
+	// @Disabled
+	@Test
+	@Order(1)
+	@DisplayName("1. testSerialize")
+	@Timeout(value = 3, unit = TimeUnit.SECONDS)
+	void testSerialize() {
+		
+		log.trace("testSerialize() invoked.");
+		
+		// + 자바 객체를 JSON으로 변환
+		
+		Foo obj = new Foo();
+		obj.setId(300);
+		obj.setName("momomom");
+		
+		log.info("\t + 1. obj : {}", obj);
+		// + 1. obj : Foo(id=300, name=momomom)
+		
+		String json = JsonWriter.objectToJson(obj);
+		log.info("\t + 2. json : {}", json);
+		// + 2. json : {"@type":"org.zerock.myapp.domain.Foo","id":300,"name":"momomom"}
+		
+		// + JasonIO는 type도 반환하고 있다.
+		// + type을 알려줌으로써 이 type으로 DeSerialize하게 하고 있다.
+		// + JasonIO는 다른 라이브러리와 다르게 JsonWriter.objectToJson을 통해 Serialize하고 있다.
+		
+	} // testSerialize
+	
+	// ===================================================
+	
+	// @Disabled
+	@Test
+	@Order(2)
+	@DisplayName("2. testDeSerialize")
+	@Timeout(value = 3, unit = TimeUnit.SECONDS)
+	void testDeSerialize() {
+		
+		log.trace("testDeSerialize() invoked.");
+		
+		// + JSON 문자열 -> Java 객체로 변환 ( Deserialize )
+		
+		// + genson과 JsonIo에서는 ESCAPE 문자를 적용한 json을 사용해야 한다. (***)
+		// + JsonIo에서는 type도 사용한다.
+		
+		String json = "{\"@type\":\"org.zerock.myapp.domain.Foo\",\"id\":300,\"name\":\"momomom\"}";
+		log.info("\t + 3. json : {}",json);
+		
+		Foo obj = (Foo) JsonReader.jsonToJava(json);
+		log.info("\t + 4. obj : {}", obj);
+		log.info("\t + 5. obj.getId : {}", obj.getId());
+		log.info("\t + 6. obj.getName : {}", obj.getName());
+		
+	} // testDeSerialize
+	
+	// ===================================================
+
+} // end class

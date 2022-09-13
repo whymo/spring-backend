@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+    <!-- 정적 문서파일은 webapp 파일 밑에 생성해야 한다. -->
+</head>
+
+<body>
+    <h1>getParameter 실습</h1>
+
+    <form action="JSP/login.jsp" method="post">
+
+        <fieldset>
+
+            <legend>로그인 폼</legend>
+            
+            <ul>
+                <li>
+                    <label for="userid">1. 아이디</label>
+                    <input type="text" name="userid">
+                </li>
+
+                <li>
+                    <label for="password">2. 비밀번호</label>
+                    <input type="password" name="password">
+                </li>
+
+                <li><input type="submit" value="전송"></li>
+            </ul>
+        </fieldset>
+    </form>
+</body>
+
+</html>

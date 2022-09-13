@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+  <environments default="production">
+
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+
+      <dataSource type="UNPOOLED">
+        <!-- <property name="driver" value="oracle.jdbc.OracleDriver"/> -->
+        <!-- <property name="url" value="jdbc:oracle:thin:@atp20191201_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP"/> -->
+
+        <property name="driver" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+        <property name="url" value="jdbc:log4jdbc:oracle:thin:@atp20191201_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP"/>
+
+        <property name="username" value="ADMIN"/>
+        <property name="password" value="Oracle12345678"/>
+
+        <!-- <property name="defaultTransactionIsolationLevel" value="" /> -->
+        <!-- <property name="defaultNetworkTimeout" value="1000" /> -->
+        <property name="driver.encoding" value="utf8" />
+      </dataSource>
+    </environment>
+
+
+    <environment id="production">
+      <transactionManager type="JDBC"/>
+
+      <dataSource type="POOLED">
+        <!-- <property name="driver" value="oracle.jdbc.OracleDriver"/> -->
+        <!-- <property name="url" value="jdbc:oracle:thin:@atp20191201_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP"/> -->
+
+        <property name="driver" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+        <property name="url" value="jdbc:log4jdbc:oracle:thin:@atp20191201_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP"/>
+
+        <property name="username" value="ADMIN"/>
+        <property name="password" value="Oracle12345678"/>
+
+        <property name="poolMaximumActiveConnections" value="10" />
+        <property name="poolMaximumIdleConnections" value="3" />
+        <property name="poolTimeToWait" value="20000" />
+        <property name="poolPingQuery" value="SELECT 1 FROM dual" />
+        <property name="poolPingEnabled" value="true" />
+        <property name="poolPingConnectionsNotUsedFor" value="60000" />
+
+        <property name="driver.encoding" value="utf8" />
+      </dataSource>
+    </environment>
+
+  </environments>
+
+
+  <mappers>
+    <mapper resource="BoardMapper.xml"/>
+    <mapper resource="MemberMapper.xml"/>
+    
+    <mapper resource="mappers/BoardMapper.xml"/>
+    <mapper resource="mappers/MemberMapper.xml"/>
+
+    <!-- <mapper class="org.zerock.mybatis.mapper.BoardMapper" />
+    <mapper class="org.zerock.mybatis.mapper.MemberMapper" /> -->
+
+    <package name="org.zerock.mybatis.mapper" />
+  </mappers>
+
+</configuration>

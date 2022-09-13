@@ -1,0 +1,78 @@
+package org.zerock.myapp.genson;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Timeout;
+import org.zerock.myapp.domain.Bar;
+import org.zerock.myapp.domain.Foo;
+
+import com.owlike.genson.Genson;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+
+@Log4j2
+@NoArgsConstructor
+
+@TestInstance(Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class GensonTests {
+	
+	// @Disabled
+	@Test
+	@Order(1)
+	@DisplayName("1. testSerialize")
+	@Timeout(value = 3, unit = TimeUnit.SECONDS)
+	void testSerialize() {
+		
+		log.trace("testSerialize() invoked.");
+		
+		Foo obj = new Foo();
+		obj.setId(300);
+		obj.setName("momomomo");
+		
+		log.info("\t + 1. obj : {}", obj);
+		// + 1. obj : Foo(id=300, name=momomomo)
+		
+		Genson genson = new Genson();
+		String json = genson.serialize(obj);
+		log.info("\t + 2. serialize json : {}", json);
+		// + 2. serialize json : {"id":300,"name":"momomomo"}
+		// + genson의 경우 serialize / deserialize를 통해서 변환 / 역변환이 가능하다.
+		
+	} // testSerialize
+	
+	// ===================================================
+	
+	// @Disabled
+	@Test
+	@Order(2)
+	@DisplayName("2. testDeSerialize")
+	@Timeout(value = 3, unit = TimeUnit.SECONDS)
+	void testDeSerialize() {
+		
+		log.trace("testDeSerialize() invoked.");
+		
+		// + Genson 라이브러리를 이용한 DeSerialize하기 위해서는,
+		// + 자바 객체가 기본 생성자와 Setter를 가지고 있어야만 한다. (***)
+		// + 그렇기에 @Value가 아닌 @Data를 사용해줘야만 한다.
+		
+		String json = "{\"id\":300,\"name\":\"momomomo\"}";
+		
+		Genson genson = new Genson();
+		Foo foo = genson.<Foo>deserialize(json, Foo.class);
+		log.info("\t + 3. deserialize java : {}", foo);
+		
+	} // testDeSerialize
+	
+	// ===================================================
+
+} // end class

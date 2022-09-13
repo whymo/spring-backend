@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+   
+   <!-- Root Context: defines shared resources visible to all other web components -->
+   
+   <!-- Hikari Configuration -->
+   <!-- primary는 같은 이름이 여러개 일때, 이것을 우선순위로 삼으라는 의미이다. -->
+   <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig" primary="true" >
+      <description>HikariCP Configuration</description>
+
+      <!-- 1. JDBC 연결정보 속성들에 값 설정 -->
+      <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+      <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@db202204131245_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP"/>
+      <property name="username" value="HR"/>
+      <property name="password" value="Oracle87761226"/>
+
+      <!-- 2. Connection Pool의 작동방식과 관련된 속성들에 값 설정 -->
+      <property name="maximumPoolSize" value="10"/>
+      <property name="minimumIdle" value="2"/>
+      <property name="idleTimeout" value="10000"/>
+      <property name="connectionTimeout" value="1000"/>
+      <property name="connectionTestQuery" value="SELECT 1 FROM dual"/>
+      <property name="dataSourceJNDI" value="jdbc/HikariCP"/>
+      <property name="poolName" value="*** HikariDataSource ***"/>
+   </bean>
+
+   <bean 
+      id="hikariDataSource" 
+      class="com.zaxxer.hikari.HikariDataSource"
+      destroy-method="close">
+      <description>HikariCP DataSource</description>
+
+      <!-- 생성자 매개변수가 2개 이상일 때 사용할 수 있는 속성 -->
+      <!-- <constructor-arg name="" value="" ref="" index=""/> -->
+      
+      <constructor-arg ref="hikariConfig"/>
+      <!-- ref : 매개변수로 hikariConfig를 사용 -->
+   </bean>
+
+   <!-- MyBatis Configuration -->
+   <!-- SqlSessionFactory Bean 등록 -->
+   <bean 
+      id="sqlSessionFactory"
+      class="org.mybatis.spring.SqlSessionFactoryBean">
+
+      <property name="dataSource" ref="hikariDataSource" />
+      <property name="configLocation" value="classpath:mybatis-config.xml" />
+      <!-- classpath:는 resources 객체를 만들어 준다. -->
+      <!-- classpath는 path 환경변수에 등록한 순서대로 파일을 찾아준다. -->
+      <!-- classpath: = /WEB-INF/classes/..... -->
+      <!-- /WEB-INF/classes/..... 아래의 파일들을 확인해 준다. -->
+      <!-- 폴더의 자세한 path는 설정의 Deployment Assembly를 확인하면 된다. -->
+
+   </bean>
+
+   <!-- mybatis와 spring을 연동했을 때에만 사용이 가능한 태그 -->
+   <!-- mapper 자체를 bean으로 등록시켜 버린다. -->
+   <mybatis-spring:scan base-package="org.zerock.myapp.mapper" />
+
+   <!-- + mybatis-spring 연동 라이브러리가 제공하는 아래의 태그는, -->
+   <!-- + 지정한 자바 패키지를 스캔해서 지정한 패키지에 있는 자바 인터헤이스를 Mapper Interface로 간주하고 -->
+   <!-- + 자동으로 Bean으로 등록하는 태그이다. -->
+
+</beans>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app
+    version="4.0"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+
+    <display-name>mweb03</display-name>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- ============================================ -->
+    <!-- 공통 JSP 설정 (****) -->
+    <!-- ============================================ -->
+
+    <jsp-config>
+      <jsp-property-group>
+        <url-pattern>*.jsp</url-pattern>
+        <page-encoding>UTF-8</page-encoding>
+        <include-prelude>/WEB-INF/views/include.jsp</include-prelude>
+        <trim-directive-whitespaces>true</trim-directive-whitespaces>
+        <default-content-type>text/html; charset=utf8</default-content-type>
+      </jsp-property-group>
+    </jsp-config>
+
+    <!-- include-prelude 태그의 /WEB-INF/views/include.jsp의 의미는 모든 jsp파일에 /WEB-INF/views/include.jsp를 넣는다는 의미이다. -->
+
+    <!-- ============================================ -->
+    <!-- Web Application의 예외처리 방법 1 -->
+
+    <error-page>
+      <error-code>500</error-code>
+      <location>/JSP/error/500.jsp</location>
+    </error-page>
+
+    <error-page>
+      <error-code>404</error-code>
+      <location>/JSP/error/404.jsp</location>
+    </error-page>
+
+    <!-- Web Application의 예외처리 방법 2 -->
+
+    <error-page>
+      <exception-type>java.lang.NullPointerException</exception-type>
+      <location>/JSP/error/null.jsp</location>
+    </error-page>
+
+    <!-- ============================================ -->
+
+    <!-- 세션(Session) Time Out 지정 -->
+    <!-- session-timeout태그의 단위는 분으로, 현재 30분을 지정한 것이다. -->
+
+    <session-config>
+      <session-timeout>30</session-timeout>
+    </session-config>
+
+    <!-- ============================================ -->
+
+    <!-- 컨텍스트 파라미터(공유 데이터) 2개 등록 : 모든 서블릿과 JSP가 공유해서 사용이 가능 -->
+
+    <context-param>
+
+      <param-name>jdbcDriver</param-name>
+      <param-value>oracle.jdbc.OracleDriver</param-value>
+
+    </context-param>
+
+    <context-param>
+
+      <param-name>savePath</param-name>
+      <param-value>C:/save</param-value>
+
+    </context-param>
+
+    <!-- ============================================ -->
+
+    <!-- 수동으로 등록하는 방법 -->
+
+    <servlet>
+      <servlet-name>HelloServlet</servlet-name>
+      <servlet-class>org.zerock.myapp.HelloServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>HelloServlet</servlet-name>
+      <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+
+    <!-- ============================================ -->
+
+    <!-- 초기화 파라미터 작성 -->
+
+    <servlet>
+
+      <servlet-name>InitParam2Servlet</servlet-name>
+      <servlet-class>org.zerock.myapp.InitParam2Servlet</servlet-class>
+
+      <init-param>
+        <param-name>dirPath</param-name>
+        <param-value>DIR_PATH_VALUE</param-value>
+      </init-param>
+
+      <init-param>
+        <param-name>userid</param-name>
+        <param-value>USER_ID_VALUE_HR</param-value>
+      </init-param>
+
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>InitParam2Servlet</servlet-name>
+      <url-pattern>/InitParam2</url-pattern>
+    </servlet-mapping>
+
+    <!-- ============================================ -->
+
+    <listener>
+      <listener-class>org.zerock.myapp.listener.ContextListenerImpl</listener-class>
+    </listener>
+
+    <!-- ============================================ -->
+
+    <!-- <filter>
+      <filter-name>MyFilter</filter-name>
+      <filter-class>org.zerock.myapp.filter.MyFilter</filter-class>
+    </filter> -->
+
+    <!-- <filter-mapping>
+      <filter-name>MyFilter</filter-name>
+      <url-pattern>/*</url-pattern> -->
+      <!-- <servlet-name>REQUEST</servlet-name> -->
+      <!-- REQUEST는 정상적으로 실행되는 것에만 적용한다는 의미이다. -->
+    <!-- </filter-mapping> -->
+
+    <!-- ============================================ -->
+
+    <!-- <filter>
+      <filter-name>MyFilter2</filter-name>
+      <filter-class>org.zerock.myapp.filter.MyFilter2</filter-class>
+    </filter> -->
+
+    <!-- <filter-mapping>
+      <filter-name>MyFilter2</filter-name>
+      <url-pattern>/hello</url-pattern> -->
+      <!-- <servlet-name>REQUEST</servlet-name> -->
+      <!-- REQUEST는 정상적으로 실행되는 것에만 적용한다는 의미이다. -->
+    <!-- </filter-mapping> -->
+
+    <!-- ============================================ -->
+
+    <!-- 초기화 파라미터 작성 -->
+
+    <servlet>
+
+      <servlet-name>EmpSelectServlet2</servlet-name>
+      <servlet-class>org.zerock.myapp.EmpSelectServlet2</servlet-class>
+
+      <init-param>
+        <param-name>jdbcUrl</param-name>
+        <param-value>jdbc:oracle:thin:@db202204131245_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP</param-value>
+      </init-param>
+
+      <init-param>
+        <param-name>driverClass</param-name>
+        <param-value>oracle.jdbc.OracleDriver</param-value>
+      </init-param>
+
+      <init-param>
+        <param-name>user</param-name>
+        <param-value>SCOTT</param-value>
+      </init-param>
+
+      <init-param>
+        <param-name>pass</param-name>
+        <param-value>Oracle12345678</param-value>
+      </init-param>
+
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>EmpSelectServlet2</servlet-name>
+      <url-pattern>/EmpSelect2</url-pattern>
+    </servlet-mapping>
+
+    <!-- ============================================ -->
+
+    <!-- JSP의 초기화 파라미터 등록 -->
+
+    <servlet>
+
+      <servlet-name>configJSP</servlet-name>
+      <jsp-file>/JSP/config.jsp</jsp-file>
+
+      <init-param>
+        <param-name>dirPath</param-name>
+        <param-value>C:/Temp/upload</param-value>
+      </init-param>
+
+      <init-param>
+        <param-name>userid</param-name>
+        <param-value>wow</param-value>
+      </init-param>
+
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>configJSP</servlet-name>
+      <url-pattern>/JSP/config.jsp</url-pattern>
+      <url-pattern>/CONFIG</url-pattern>
+    </servlet-mapping>
+
+    <!-- ============================================ -->
+
+</web-app>

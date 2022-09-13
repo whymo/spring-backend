@@ -1,0 +1,18 @@
+package org.zerock.myapp.jackson;
+
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.TestMethodOrder;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
+@NoArgsConstructor
+
+@TestInstance(Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class JacksonTests {
+
+} // end class

@@ -1,0 +1,111 @@
+package org.zerock.myapp.javastd;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.Arrays;
+
+import lombok.Cleanup;
+import lombok.extern.log4j.Log4j2;
+
+
+@Log4j2
+public class HttpURLConnectionExample2 {
+	
+	public static void main(String[] args) throws Exception {
+		log.trace("main({}) invoked.", Arrays.toString(args));
+		
+		// =======================================================================================================
+		// 1. 지정된 url 주소로 URL 객체 생성하기
+		// =======================================================================================================
+		// + 승인받은 공공데이터 포털의 endpoint로 URL을 생성하고, 전송파라미터도 쿼리 String 형태로 붙여준다.
+		// =======================================================================================================
+		
+		// ===============================================
+		// 1 ) 방법 1
+		// ===============================================
+		String endPoint = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson";
+		String params = "?serviceKey=k%2FpKmqc9MTVkMiYnlv2rLFvpKZhSXsnDSLFsbbTZhwUOIIZMCwv2PW0MN9Oz8aK9apgMpO%2FGWnzhRJ2H1js2Yw%3D%3D"+
+						"&pageNo=1"+
+						"&numOfRows=10"+
+						"&startCreateDt=20220801"+
+						"&endCreateDt=20220830";
+		
+		String apiUrl = endPoint + params;
+		
+		// ===============================================
+		// 2 ) 방법 2
+		// ===============================================
+		StringBuffer sb = new StringBuffer();
+		sb.append("http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson");
+		sb.append("?serviceKey=k%2FpKmqc9MTVkMiYnlv2rLFvpKZhSXsnDSLFsbbTZhwUOIIZMCwv2PW0MN9Oz8aK9apgMpO%2FGWnzhRJ2H1js2Yw%3D%3D");
+		sb.append("&pageNo=1");
+		sb.append("&numOfRows=10");
+		sb.append("&startCreateDt=20220801");
+		sb.append("&endCreateDt=20220830");
+
+		// + 만약, 전송파라미터 값 중에 다국어 문자 등이 있을 경우에는 반드시! URL Encoding을 해서 넣어줘야 한다.
+		// + ex. sb.append(URLEncoder.encode("값", "utf8")); (****)
+		
+		String apiUrl2 = sb.toString();
+		
+		URL url = new URL(apiUrl2);
+		log.info("\t + 1. url : {}", url);
+		
+		// ==========================================
+		// 2. URL 객체에서 URLConnection 객체를 획득
+		// ==========================================
+		
+		URLConnection conn = url.openConnection();
+		
+		// ==========================================
+		// + 추가적인 설정
+		// ==========================================
+		conn.setConnectTimeout(1000 * 1);		// 연결시간 - 밀리세컨드 단위
+		conn.setReadTimeout(1000*2);			// 읽어오는 시간 - 밀리세컨드 단위
+		conn.setDoInput(true);					// InputStream을 사용할 것이다
+		conn.setDoOutput(false);				// OutputStream을 사용하지 않을 것이다.
+		
+		// =================================================
+		// 3. URLConnection 객체를 자식타입으로 강제형변환
+		// =================================================
+		
+		@Cleanup("disconnect")
+		HttpURLConnection httpConn = (HttpURLConnection) conn;	// + HTTP Client 역할을 한다.
+		httpConn.setRequestMethod("GET");						// + GET 방식으로 요청 메세지를 보내겠다.
+		
+		// =======================================================================================================
+		// 4. HttpURLConnection 객체를 통해서, HTTP request(요청메세지)를 보내고 HTTP response(응답메세지)를 받자
+		// =======================================================================================================
+		// + 이때 요청과 응답은 InputStream과 OutputStream을 통해서 수행한다.
+		// + 이 단계에서 자동으로 request
+		// =======================================================================================================
+		
+		{
+			
+			// =======================================================================================
+			// + HttpURLConnection과 InputStream을 차례대로 닫게 하기 위해서,
+			// + InputStream에 사용자 정의 블록을 생성하여, 블록의 끝에 도달하면 먼저 닫히게 하였다.
+			// =======================================================================================
+			
+			@Cleanup
+			InputStream is = conn.getInputStream();		
+			// + 바이트 기반의 입력스트림 획득
+			// + InputStream을 얻는 동시에 요청을 보내게 된다.
+			
+			int b;
+			
+			while ( ( b = is.read() ) != -1 ) { // + EOF : ( End Of File )
+				
+				System.out.print( (char) b);
+				// + url에서 보내오는 것은 거대한 문자열이기에 char타입으로 변환하여 받아야 한다.
+				
+			} // while
+			
+		} // 사용자 정의 블록 : inputstream을 위한
+		
+	} // main
+
+} // end class

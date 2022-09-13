@@ -1,0 +1,7 @@
+#Tomcat publish data
+#Mon Aug 29 14:02:26 KST 2022
+org.eclipse.jst.jee.server\:chap10=C\:\\app\\scoop\\apps\\tomcat9\\current\\wtpwebapps\\chap10
+org.eclipse.jst.jee.server\:springstudyinterceptor=C\:\\app\\scoop\\apps\\tomcat9\\current\\wtpwebapps\\springstudyinterceptor
+org.eclipse.jst.jee.server\:chap09=C\:\\app\\scoop\\apps\\tomcat9\\current\\wtpwebapps\\chap09
+org.eclipse.jst.jee.server\:chapstudtytransaction=C\:\\app\\scoop\\apps\\tomcat9\\current\\wtpwebapps\\chapstudtytransaction
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\Junhyun\\.m2\\repository\\org\\springframework\\spring-web\\5.3.21\\spring-web-5.3.21.jar=C\:\\app\\scoop\\apps\\tomcat9\\current\\wtpwebapps\\chapstudtytransaction\\WEB-INF\\lib\\spring-web-5.3.21.jar

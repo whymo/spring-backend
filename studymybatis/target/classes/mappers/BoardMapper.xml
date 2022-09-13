@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mappers.BoardMapper">
+
+
+  <select id="selectAllBoards" resultType="org.zerock.mybatis.domain.BoardVO">
+
+    SELECT /*+ INDEX_DESC(tbl_board) */ *
+    FROM tbl_board
+
+  </select>
+
+
+  <select id="selectBoard" resultType="org.zerock.mybatis.domain.BoardVO">
+
+    SELECT *
+    FROM tbl_board
+    WHERE bno = #{bno}
+
+  </select>
+
+  
+  <select id="findBoardByBno" resultType="org.zerock.mybatis.domain.BoardVO">
+
+    SELECT *
+    FROM tbl_board
+    WHERE
+
+      <!-- <if> 태그가 자동으로 WHERE 키워드를 만들어 주지는 못함. -->
+      <if test="bno != null">
+        bno = #{bno}
+      </if>
+
+  </select>
+
+
+  <select id="findBoardsByTitle" resultType="org.zerock.mybatis.domain.BoardVO">
+
+    SELECT *
+    FROM tbl_board
+
+    <where>
+
+      <if test="title != null">
+        <!-- title LIKE '%'||#{title}||'%' -->
+        title LIKE #{title}
+      </if>
+
+    </where>
+
+  </select>
+
+
+  <select id="findBoardsByWriter" resultType="org.zerock.mybatis.domain.BoardVO">
+
+    SELECT *
+    FROM  tbl_board
+
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+
+      <if test="writer != null">
+        writer LIKE #{writer}
+      </if>
+
+    </trim>
+
+  </select>
+
+
+  <select id="findBoardsByBnoAndTitle" resultType="org.zerock.mybatis.domain.BoardVO">
+
+    SELECT *
+    FROM  tbl_board
+
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+      <if test="bno != null">
+        bno = #{bno}
+      </if>
+
+      <if test="title != null">
+        AND title LIKE #{title}
+      </if>
+
+      <!-- <if test="title != null">
+        OR title LIKE #{title}
+      </if> -->
+    </trim>
+
+  </select>
+
+
+  <select id="findBoardsByBnoOrTitle" resultType="org.zerock.mybatis.domain.BoardVO">
+
+    SELECT *
+    FROM  tbl_board
+    
+    <where>
+
+      <choose>
+
+        <when test="bno != null">
+          bno = #{bno}
+        </when>
+
+        <when test="title != null">
+          AND title LIKE #{title}
+        </when>
+
+        <otherwise>
+          AND content LIKE '%1000%'
+        </otherwise>
+
+      </choose>
+
+    </where>
+
+  </select>
+
+
+
+  <select id="findBoardsBySomeBnos" resultType="org.zerock.mybatis.domain.BoardVO">
+
+    SELECT  *
+    FROM  tbl_board
+
+    <where>
+      bno IN
+
+      <!-- <foreach collection="array" index="index" item="bno" open="(" close=")" separator=","> -->
+      <foreach collection="list" index="index" item="bno" open="(" close=")" separator=",">
+        #{bno}
+      </foreach>
+
+    </where>
+
+  </select>
+
+  
+</mapper>
